@@ -4,17 +4,30 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField]
+    private float speed;
 
     [SerializeField]
-    private float maxSpeed;
-
-    [SerializeField][Tooltip("Current Speed is incremented by this value until Max Speed is reached. Leave as 0 for no acceleration.")]
+    [Tooltip("Current Speed is incremented by this value until 'Speed' is reached. Leave as 0 for no acceleration.")]
     private float acceleration;
 
-    [SerializeField][Tooltip("Slows down or speeds up diagonal movement.")]
-    private float diagonalSpeedMod;
+    [SerializeField]
+    [Tooltip("Current Speed is decremented by this value when movement keys are released. Leave as 0 for no deceleration")]
+    private float deceleration;
+
+    [SerializeField]
+    [Tooltip("Set diagonal speed.")]
+    private float diagonalSpeed;
 
     private float currentSpeed;
+
+    private float inputX;
+
+    private float inputY;
+
+    private float lastInputX;
+
+    private float lastInputY;
 
     private Rigidbody2D rb;
 
@@ -26,13 +39,21 @@ public class PlayerMovement : MonoBehaviour
 	
 	void FixedUpdate ()
     {
+        inputX = Input.GetAxisRaw("Horizontal");
+        inputY = Input.GetAxisRaw("Vertical");
 
-        float x = Input.GetAxisRaw("Horizontal");
-        float y = Input.GetAxisRaw("Vertical");
+        float maxSpeed = speed;
 
-        if (acceleration != 0)
+        // If diagonal movement: use diagonal max speed
+        if (Mathf.Abs(inputX) == Mathf.Abs(inputY))
         {
-            if (x != 0 || y != 0)
+            maxSpeed = diagonalSpeed;
+        }
+
+        // Check for input and apply acceleration/deceleration if set.
+        if (inputX != 0 || inputY != 0)
+        {
+            if (acceleration != 0)
             {
                 if (currentSpeed < maxSpeed)
                 {
@@ -43,35 +64,50 @@ public class PlayerMovement : MonoBehaviour
                     currentSpeed = maxSpeed;
                 }
             }
-            else if (x == 0 && y == 0)
+            else
+            {
+                currentSpeed = maxSpeed;
+            }
+
+            print("Current Speed: " + currentSpeed);
+            rb.velocity = new Vector3(inputX, inputY) * currentSpeed;
+
+            lastInputX = inputX;
+            lastInputY = inputY;
+        }
+        //Deceleration. (Not a good solution.)
+        else if (inputX == 0 && inputY == 0)
+        {
+            if (deceleration != 0)
+            {
+                if (currentSpeed > 0)
+                {
+                    currentSpeed -= deceleration;
+                }
+                else if (currentSpeed < 0)
+                {
+                    currentSpeed = 0;
+                }
+            }
+            else
             {
                 currentSpeed = 0;
             }
+
+            print("Current Speed: " + currentSpeed);
+            rb.velocity = new Vector3(lastInputX, lastInputY) * currentSpeed;
         }
         else
         {
-            currentSpeed = maxSpeed;
+            rb.velocity = new Vector3(inputX, inputY) * currentSpeed;
         }
-
-
-
-        // If diagonal movement: add speed modifier
-        if ((Mathf.Abs(x) != Mathf.Abs(y)))
-        {
-            rb.velocity = new Vector3(x, y) * currentSpeed;
-        }
-        else if (x != 0 || y != 0)
-        {
-            rb.velocity = new Vector3(x, y) * (currentSpeed + diagonalSpeedMod);
-        }
-        else
-        {
-            rb.velocity = Vector3.zero;
-        }
-        
 
         
 
-        
-	}
+
+
+
+
+
+    }
 }
