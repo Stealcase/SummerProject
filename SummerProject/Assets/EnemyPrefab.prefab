@@ -23,9 +23,8 @@ GameObject:
   - component: {fileID: 50729174854577336}
   - component: {fileID: 114526419171675926}
   - component: {fileID: 61889785888655028}
-  - component: {fileID: 114263179334181868}
   m_Layer: 0
-  m_Name: PlayerPrefab
+  m_Name: EnemyPrefab
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -89,17 +88,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.9567752, y: 0.98147535}
   m_EdgeRadius: 0
---- !u!114 &114263179334181868
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1786922061069688}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17e8018e107195c4cbf1cfbeda1179ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114526419171675926
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -150,7 +138,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4af4741611023f74686604501affa520, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f4cffaad95e7ba14c8b62e8edb09fff4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
