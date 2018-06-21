@@ -242,6 +242,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17e8018e107195c4cbf1cfbeda1179ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 20
+  will: 1
+  physical: 1
+  weapon: 1
+  speed: 1
 --- !u!1 &920524092
 GameObject:
   m_ObjectHideFlags: 0
@@ -2524,7 +2529,7 @@ TilemapCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 1
   m_Offset: {x: 0, y: 0}
---- !u!1001 &2078550801
+--- !u!1001 &2064388242
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -2533,7 +2538,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4940887370559376, guid: 60164a889f733154da5cf7d4a99305b4, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 3.23606
+      value: 3.494945
       objectReference: {fileID: 0}
     - target: {fileID: 4940887370559376, guid: 60164a889f733154da5cf7d4a99305b4, type: 2}
       propertyPath: m_LocalPosition.y
@@ -2563,27 +2568,7 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1786922061069688, guid: 60164a889f733154da5cf7d4a99305b4, type: 2}
-      propertyPath: m_TagString
-      value: Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 50729174854577336, guid: 60164a889f733154da5cf7d4a99305b4,
-        type: 2}
-      propertyPath: m_Constraints
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 50729174854577336, guid: 60164a889f733154da5cf7d4a99305b4,
-        type: 2}
-      propertyPath: m_Simulated
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 50729174854577336, guid: 60164a889f733154da5cf7d4a99305b4,
-        type: 2}
-      propertyPath: m_BodyType
-      value: 2
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 114526419171675926, guid: 60164a889f733154da5cf7d4a99305b4, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 60164a889f733154da5cf7d4a99305b4, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &2119798529

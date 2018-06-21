@@ -10,6 +10,7 @@ public class StateMachine {
     public IState CurrentState { get; private set; }
     public IState PreviousState { get; private set; }
 
+    //Changes to newState and stores previous
 	public void ChangeState(IState newState)
     {
         if (currentState != null)
@@ -20,6 +21,31 @@ public class StateMachine {
 
         currentState = newState;
         currentState.Enter();
+    }
+
+    //Changes to newState but storing previous is optional
+    public void ChangeState(IState newState, bool storePrevious)
+    {
+        if (currentState != null)
+        {
+            currentState.Exit();
+            if (storePrevious)
+            {
+                previousState = currentState;
+            }
+        }
+
+        currentState = newState;
+        currentState.Enter();
+    }
+
+    public void ChangeToPreviousState()
+    {
+        if (previousState != null)
+        {
+            ChangeState(previousState);
+        }
+        
     }
 
     public void UpdateState()

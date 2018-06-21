@@ -6,7 +6,7 @@ public class DefaultState : IState {
 
 	public void Enter()
     {
-        GameManager.Instance.ChangeScene("BasicMovementTest");
+
     }
 
     public void Execute()
