@@ -69,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
                 currentSpeed = maxSpeed;
             }
 
-            print("Current Speed: " + currentSpeed);
+            //print("Current Speed: " + currentSpeed);
             rb.velocity = new Vector3(inputX, inputY) * currentSpeed;
 
             lastInputX = inputX;
@@ -94,7 +94,7 @@ public class PlayerMovement : MonoBehaviour
                 currentSpeed = 0;
             }
 
-            print("Current Speed: " + currentSpeed);
+            //print("Current Speed: " + currentSpeed);
             rb.velocity = new Vector3(lastInputX, lastInputY) * currentSpeed;
         }
         else
