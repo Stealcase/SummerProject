@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour {
     public StateMachine gameStateMachine;
     private int previousSceneIdx;
 
+    public Vector3 lastPlayerPos;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -41,6 +43,11 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         gameStateMachine.UpdateState();
+
+        if (CurrentGameState() != "Battle")
+        {
+            lastPlayerPos = Player.Instance.transform.position;
+        }
 	}
 
     // Other scripts load scenes through the GameManager.
