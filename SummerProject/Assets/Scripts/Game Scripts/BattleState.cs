@@ -114,7 +114,7 @@ public class BattleState : IState {
     public void Exit()
     {
         GameManager.Instance.LoadPreviousScene();
-        Player.Instance.transform.position = GameManager.Instance.lastPlayerPos;
+        //Player.Instance.transform.position = GameManager.Instance.lastPlayerPos;
     }
 
     public string Log()
