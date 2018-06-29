@@ -22,15 +22,24 @@ public class MovePhase : IState {
 
     public void Execute()
     {
-        if (Input.GetKeyUp(KeyCode.Alpha1))
-        {
-            playerMove1 = new JumpStrike();
-        }
+        
     }
 
     public void Exit()
     {
 
+    }
+
+    public void SetMove(IMove move)
+    {
+        if (playerMove1 == null && playerMove2 == null)
+        {
+            playerMove1 = move;
+        }
+        else if (playerMove1 != null && playerMove2 == null)
+        {
+            playerMove2 = move;
+        }
     }
 
     public string Log()

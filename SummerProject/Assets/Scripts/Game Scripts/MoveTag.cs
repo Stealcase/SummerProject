@@ -17,8 +17,6 @@ public class MoveTag : MonoBehaviour {
     public Sprite sprite;
     public MoveID moveID;
 
-
-
 	// Use this for initialization
 	void Start () {
 		

@@ -20,7 +20,7 @@ public class MoveTagDisplay : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		 
 	}
 
     public void Prime(MoveTag move)
@@ -34,11 +34,5 @@ public class MoveTagDisplay : MonoBehaviour {
         {
             sprite.sprite = move.sprite;
         }
-
-    }
-
-    public MoveID GetMoveID()
-    {
-        return move.moveID;
     }
 }
