@@ -37,7 +37,7 @@ public class BattleState : IState {
         if (enemyScript.IsDead)
         {
             Debug.Log("VICTORY!!!");
-            GameManager.Instance.ChangeToPreviousGameState();
+            GameManager.Instance.ChangeGameState(new DefaultState(false));
             return;
         }
 
