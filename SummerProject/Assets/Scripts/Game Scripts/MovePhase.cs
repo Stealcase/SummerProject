@@ -18,7 +18,7 @@ public class MovePhase : IState {
     public static MovePhase Instance;
 
     /* MovePhase is always created by the RunMovePhase() method in BattleState,
-     * BattleState passes a reference to itself when this happens. Therefore
+     * BattleState passes MovePhase a reference to itself when this happens. Therefore
      * the MovePhase constructor takes in a BattleState object.
      */
     public MovePhase(BattleState battleState)

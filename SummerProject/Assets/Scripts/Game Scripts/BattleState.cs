@@ -13,6 +13,7 @@ public class BattleState : IState {
     private Enemy enemyScript;
     public Enemy EnemyScript { get; private set; }
 
+    //Move variables for passing between phases
     private IMove playerMove1;
     public IMove PlayerMove1 { get; set; }
 

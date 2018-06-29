@@ -19,6 +19,7 @@ public class MoveTagDisplay : MonoBehaviour {
         }
 
         //Null check bc. many missing buttons ATM. Avoid errors.
+        //Listener listens for OnClick event and runs method.
         if (GetComponent<Button>() != null)
         {
             this.button = GetComponent<Button>();
