@@ -22,6 +22,7 @@ public class MoveTagDisplay : MonoBehaviour {
 	void Update () {
 		
 	}
+
     public void Prime(MoveTag move)
     {
         this.move = move;
@@ -34,5 +35,10 @@ public class MoveTagDisplay : MonoBehaviour {
             sprite.sprite = move.sprite;
         }
 
+    }
+
+    public MoveID GetMoveID()
+    {
+        return move.moveID;
     }
 }

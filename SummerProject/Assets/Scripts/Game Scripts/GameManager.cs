@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour {
         //TEMPORARY FOR TESTING PURPOSES, DefaultState does nothing atm.
         if (gameStateMachine.CurrentState == null)
         {
-            ChangeGameState(new DefaultState());
+            ChangeGameState(new BattleState());
         }
 
 	}

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MovePhase : IState {
 
-    private IMove playerMove_1;
-    private IMove playerMove_2;
+    private IMove playerMove1;
+    private IMove playerMove2;
 
     private BattleState battleState;
 
@@ -24,7 +24,7 @@ public class MovePhase : IState {
     {
         if (Input.GetKeyUp(KeyCode.Alpha1))
         {
-            playerMove_1 = new JumpStrike();
+            playerMove1 = new JumpStrike();
         }
     }
 
