@@ -12,9 +12,10 @@ public class MoveTagDisplay : MonoBehaviour {
     public SelectedMove selectedMove;
 
     private Button button;
+    public TextMeshProUGUI textDesc;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 		if (move != null)
         {
             Prime();
