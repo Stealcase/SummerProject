@@ -38,6 +38,9 @@ public class ResolveMovePhase : IState {
      */
     public void Execute()
     {
+
+
+
         if (turn == Turn.Player)
         {
             battleState.EnemyScript.LoseHealth(playerMove1.ScaledValue());

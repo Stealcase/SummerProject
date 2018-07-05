@@ -1,21 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Xml;
 using UnityEngine;
+using UnityEditor;
+
 
 public class MovePhase : IState {
 
-    private IMove playerMove1;
-    private IMove playerMove2;
+    private Move playerMove1;
+    private Move playerMove2;
+    private SelectedMove selectedMoveRef;
+    private Move selectedMove;
 
     private BattleState battleState;
 
-    /* MovePhase must be accessible by MoveTagDisplay, easiest solution was
-     * to make MovePhase a singleton. The Instance is static (hence globally
-     * accessible) and there should always be 1 MovePhase anyway (singleton is ok)
-     * Because singleton, variables must be explicitly set to null to be "erased" 
-     * (maybe, not sure)
-     */
-    public static MovePhase Instance;
+    // private XmlReader xml;
 
     /* MovePhase is always created by the RunMovePhase() method in BattleState,
      * BattleState passes MovePhase a reference to itself when this happens. Therefore
@@ -23,23 +22,53 @@ public class MovePhase : IState {
      */
     public MovePhase(BattleState battleState)
     {
-        Instance = this;
         this.battleState = battleState;
     }
 
     public void Enter()
     {
         Debug.Log("Entered Move Phase");
-        playerMove1 = null;
-        playerMove2 = null;
+        selectedMoveRef = (SelectedMove)AssetDatabase.LoadAssetAtPath("Assets/Scripts/Utility/Test/SelectedMove.asset", typeof(SelectedMove));
+        selectedMoveRef.ClearMove();
+        // xml = XmlReader.Create(@"C:\Users\Martin\Documents\GitHub\SummerProject\SummerProject\Assets\Scripts\MoveData\MoveData.xml");
     }
 
     public void Execute()
     {
+        if (this.selectedMoveRef != null)
+        {
+            selectedMove = selectedMoveRef.move;
+            selectedMoveRef.ClearMove();
+        }
+
+        if (selectedMove != null)
+        {
+
+            if (playerMove1 == null && playerMove2 == null)
+            {
+                playerMove1 = selectedMove;
+                Debug.Log(playerMove1.Name + " is a " + playerMove1.Type.ToString() + " bruh");
+            }
+            else if (playerMove1 != null && playerMove2 == null)
+            {
+                if (selectedMove.Type == playerMove1.Type)
+                {
+                    playerMove1 = selectedMove;
+                    Debug.Log("You reselected a " + playerMove1.Type.ToString() + " move bruh");
+                }
+                else
+                {
+                    playerMove2 = selectedMove;
+                    Debug.Log(playerMove2.Name + " is a " + playerMove2.Type.ToString() + " bruh");
+                }
+            }
+        }
+
         //If both moves have been selected, then ResolveMovePhase.
         if (playerMove1 != null && playerMove2 != null)
         {
-            battleState.RunResolvePhase();
+            //battleState.RunResolvePhase();
+            Debug.Log("You selected " + playerMove1.Name + " and " + playerMove2.Name + " bruh");
             return;
         }
     }
@@ -47,33 +76,9 @@ public class MovePhase : IState {
     //On exit, pass selected moves to BattleState and reset.
     public void Exit()
     {
-        battleState.PlayerMove1 = playerMove1;
-        battleState.PlayerMove2 = playerMove2;
-        playerMove1 = null;
-        playerMove2 = null;
+
     }
 
-    //Sets moves in order. Each move can be any move.
-    public void SetMove(IMove move)
-    {
-        if (playerMove1 == null && playerMove2 == null)
-        {
-            playerMove1 = move;
-        }
-        else if (playerMove1 != null && playerMove2 == null)
-        {
-            playerMove2 = move;
-        }
-    }
-
-    //Checks MoveID and creates the corresponding move (one for now)
-    public void CreateMoveFromMoveID(MoveID moveID)
-    {
-        if (moveID == MoveID.JumpStrike)
-        {
-            SetMove(new JumpStrike());
-        }
-    }
 
     public string Log()
     {

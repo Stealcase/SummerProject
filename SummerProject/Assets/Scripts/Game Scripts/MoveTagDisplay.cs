@@ -8,14 +8,16 @@ public class MoveTagDisplay : MonoBehaviour {
     public TextMeshProUGUI textName;
     public Image sprite;
 
-    public MoveTag move;
+    public Move move;
+    public SelectedMove selectedMove;
+
     private Button button;
 
 	// Use this for initialization
 	void Start () {
 		if (move != null)
         {
-            Prime(move);
+            Prime();
         }
 
         //Null check bc. many missing buttons ATM. Avoid errors.
@@ -23,7 +25,7 @@ public class MoveTagDisplay : MonoBehaviour {
         if (GetComponent<Button>() != null)
         {
             this.button = GetComponent<Button>();
-            button.onClick.AddListener(delegate { PassMoveIDToMovePhase(); });
+            button.onClick.AddListener(delegate { selectedMove.SetMove(move); });
         }
         
 	}
@@ -33,24 +35,16 @@ public class MoveTagDisplay : MonoBehaviour {
 		 
 	}
 
-    public void Prime(MoveTag move)
+    public void Prime()
     {
-        this.move = move;
         if (textName != null)
         {
-            textName.text = move.displayName;
+            textName.text = move.Name;
         }
         if (sprite != null)
         {
-            sprite.sprite = move.sprite;
+            sprite.sprite = move.Sprite;
         }
-    }
-
-    //Passes MoveID to MovePhase (Horrible name)
-    public void PassMoveIDToMovePhase()
-    {
-        MovePhase.Instance.CreateMoveFromMoveID(move.moveID);
-        Debug.Log("Selected Move: " + move.moveID);
     }
 
 }

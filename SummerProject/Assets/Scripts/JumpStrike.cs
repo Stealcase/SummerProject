@@ -8,6 +8,8 @@ public class JumpStrike : IMove {
     private int priority;
     private int cooldown;
 
+    private Dictionary<MoveID, ComboID> Combos;
+
     public JumpStrike()
     {
         baseValue = 3;
@@ -35,10 +37,15 @@ public class JumpStrike : IMove {
         return cooldown;
     }
 
-
-    public MoveType Type()
+    public Dictionary<MoveID, ComboID> GetCombo()
     {
-        return global::MoveType.Weapon;
+        return null;
+    }
+
+
+    public MoveStat Type()
+    {
+        return global::MoveStat.Weapon;
     }
 
     public string Name()

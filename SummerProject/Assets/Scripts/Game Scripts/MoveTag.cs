@@ -4,11 +4,6 @@ using UnityEngine;
 
 //MoveID is used to identify which move is selected from GUI.
 //Set MoveID for a MoveTag via. dropdown in inspector.
-public enum MoveID
-{
-    JumpStrike,
-    Run
-}
 
 public class MoveTag : MonoBehaviour {
     public string displayName;
@@ -16,6 +11,7 @@ public class MoveTag : MonoBehaviour {
     public string desc;
     public Sprite sprite;
     public MoveID moveID;
+    public Move move;
 
 	// Use this for initialization
 	void Start () {

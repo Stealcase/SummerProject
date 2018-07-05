@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum MoveType
+public enum MoveID
 {
-    Will,
-    Physical,
-    Weapon
+    JumpStrike,
+    Run
+}
+
+public enum ComboID
+{
+    EpicLeapStrike,
+    SlideTackle
 }
 
 public interface IMove {
@@ -15,8 +20,11 @@ public interface IMove {
     int ScaledValue();
     int Priority();
     int Cooldown();
-    
-    MoveType Type();
+
+    Dictionary<MoveID, ComboID> GetCombo();
+
+    MoveStat Type();
     string Name();
+
 
 }
