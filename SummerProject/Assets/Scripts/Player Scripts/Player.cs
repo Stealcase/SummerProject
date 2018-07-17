@@ -70,4 +70,16 @@ public class Player : MonoBehaviour {
             GameManager.Instance.ChangeGameState(new BattleState());
         }
     }
+
+    public int GetStat(MoveStat type)
+    {
+        if (type == MoveStat.Physical)
+            return Physical;
+        if (type == MoveStat.Weapon)
+            return Weapon;
+        if (type == MoveStat.Will)
+            return Will;
+
+        return 0;
+    }
 }
