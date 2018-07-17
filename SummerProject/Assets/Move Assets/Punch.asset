@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Name: Punch
   m_EditorClassIdentifier: 
   Name: Punch
-  desc: 
+  Description: 'Example: Deals DAMAGE damage and heals HEALING HP.'
   BaseValue: 3
-  ScaledValue: 0
+  Multiplier: 0
   Priority: 1
   Cooldown: 2
   Sprite: {fileID: 21300000, guid: 678c0534175cd4943bed3bac5cf2a33d, type: 3}
   Type: 1
-  target: 1
+  Stat: 0
+  Target: 0
   TargetStat: 0

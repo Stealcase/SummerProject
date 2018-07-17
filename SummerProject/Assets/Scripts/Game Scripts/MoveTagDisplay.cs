@@ -6,13 +6,13 @@ using TMPro;
 
 public class MoveTagDisplay : MonoBehaviour {
     public TextMeshProUGUI textName;
+    public TextMeshProUGUI textDesc;
     public Image sprite;
 
     public Move move;
     public SelectedMove selectedMove;
 
     private Button button;
-    public TextMeshProUGUI textDesc;
 
     // Use this for initialization
     void Start () {
@@ -26,15 +26,16 @@ public class MoveTagDisplay : MonoBehaviour {
         if (GetComponent<Button>() != null)
         {
             this.button = GetComponent<Button>();
-            button.onClick.AddListener(delegate { selectedMove.SetMove(move); });
+            button.onClick.AddListener(delegate { selectedMove.SetMove(move); DisplayDescription(); });
         }
         
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		 
-	}
+
+       
+    }
 
     public void Prime()
     {
@@ -45,6 +46,14 @@ public class MoveTagDisplay : MonoBehaviour {
         if (sprite != null)
         {
             sprite.sprite = move.Sprite;
+        }
+    }
+
+    public void DisplayDescription()
+    {
+        if (textDesc != null)
+        {
+            textDesc.text = move.GetFormattedDescription();
         }
     }
 
