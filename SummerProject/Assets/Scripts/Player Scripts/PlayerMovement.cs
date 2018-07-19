@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
 
     private float inputY;
 
+
     private float lastInputX;
 
     private float lastInputY;
@@ -46,6 +47,13 @@ public class PlayerMovement : MonoBehaviour
         inputY = Input.GetAxisRaw("Vertical");
 
         float maxSpeed = speed;
+
+        float velocityX = rb.velocity.x / maxSpeed;
+        float velocityY = rb.velocity.y / maxSpeed;
+
+
+        animator.SetFloat("Horizontal", velocityX);
+        animator.SetFloat("Vertical", velocityY);
 
         // If diagonal movement: use diagonal max speed
         if (Mathf.Abs(inputX) == Mathf.Abs(inputY))
@@ -72,39 +80,39 @@ public class PlayerMovement : MonoBehaviour
                 currentSpeed = maxSpeed;
             }
 
-            //Ugh blegh. Kanskje rydde opp i dette her en gang
-            if (inputX > 0 && inputY == 0)
-            {
-                SetAnimation(true, false, false, false);    //Right
-            }
-            else if (inputX < 0 && inputY == 0)
-            {
-                SetAnimation(false, true, false, false);    //Left
-            }
-            else if (inputX == 0 && inputY > 0)
-            {
-                SetAnimation(false, false, true, false);    //Down
-            }
-            else if (inputX == 0 && inputY < 0)
-            {
-                SetAnimation(false, false, false, true);    //Up
-            }
-            else if (inputX > 0 && inputY < 0)
-            {
-                SetAnimation(true, false, false, true);     //Down Right
-            }
-            else if (inputX < 0 && inputY < 0)
-            {
-                SetAnimation(false, true, false, true);     //Down Left
-            }
-            else if (inputX > 0 && inputY > 0)
-            {
-                SetAnimation(true, false, true, false);     //Up Right
-            }
-            else if (inputX < 0 && inputY > 0)
-            {
-                SetAnimation(false, true, true, false);     //Up Left
-            }
+            ////Ugh blegh. Kanskje rydde opp i dette her en gang
+            //if (inputX > 0 && inputY == 0)
+            //{
+            //    SetAnimation(true, false, false, false);    //Right
+            //}
+            //else if (inputX < 0 && inputY == 0)
+            //{
+            //    SetAnimation(false, true, false, false);    //Left
+            //}
+            //else if (inputX == 0 && inputY > 0)
+            //{
+            //    SetAnimation(false, false, true, false);    //Down
+            //}
+            //else if (inputX == 0 && inputY < 0)
+            //{
+            //    SetAnimation(false, false, false, true);    //Up
+            //}
+            //else if (inputX > 0 && inputY < 0)
+            //{
+            //    SetAnimation(true, false, false, true);     //Down Right
+            //}
+            //else if (inputX < 0 && inputY < 0)
+            //{
+            //    SetAnimation(false, true, false, true);     //Down Left
+            //}
+            //else if (inputX > 0 && inputY > 0)
+            //{
+            //    SetAnimation(true, false, true, false);     //Up Right
+            //}
+            //else if (inputX < 0 && inputY > 0)
+            //{
+            //    SetAnimation(false, true, true, false);     //Up Left
+            //}
 
             //print("Current Speed: " + currentSpeed);
             rb.velocity = new Vector3(inputX, inputY) * currentSpeed;
