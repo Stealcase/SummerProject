@@ -9,16 +9,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7b01f1d570e5a8948bb7db2641e362fa, type: 3}
-  m_Name: Run
+  m_Name: Regain Composure
   m_EditorClassIdentifier: 
-  Name: Run
-  Description: 
-  BaseValue: 1
-  Multiplier: 0
-  Priority: 2
+  Name: Regain Composure
+  Description: Take a deep breath and get HP back
+  BaseValue: 2
+  Multiplier: 1
+  Priority: 1
   Cooldown: 1
-  Sprite: {fileID: 21300000, guid: ef7244118c1e249e4bbbdd56fb60e50d, type: 3}
-  Type: 1
-  Stat: 1
+  Sprite: {fileID: 21300000, guid: d8470a2110fb9480aab068689e3c7b36, type: 3}
+  Type: 0
+  Stat: 0
   Target: 0
-  TargetStat: 1
+  TargetStat: 0

@@ -14,11 +14,11 @@ MonoBehaviour:
   Name: Punch
   Description: 'Example: Deals DAMAGE damage and heals HEALING HP.'
   BaseValue: 3
-  Multiplier: 0
+  Multiplier: 1
   Priority: 1
   Cooldown: 2
   Sprite: {fileID: 21300000, guid: 678c0534175cd4943bed3bac5cf2a33d, type: 3}
-  Type: 1
-  Stat: 0
-  Target: 0
+  Type: 0
+  Stat: 1
+  Target: 1
   TargetStat: 0

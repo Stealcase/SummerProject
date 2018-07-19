@@ -9,16 +9,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7b01f1d570e5a8948bb7db2641e362fa, type: 3}
-  m_Name: Run
+  m_Name: Hero Pose
   m_EditorClassIdentifier: 
-  Name: Run
-  Description: 
-  BaseValue: 1
-  Multiplier: 0
-  Priority: 2
+  Name: Hero Pose
+  Description: Strike a pose after your heroics to increase your domination!
+  BaseValue: 2
+  Multiplier: 1
+  Priority: 0
   Cooldown: 1
-  Sprite: {fileID: 21300000, guid: ef7244118c1e249e4bbbdd56fb60e50d, type: 3}
+  Sprite: {fileID: 21300000, guid: b00d10af9bf074ed99ced4a2ac5682d5, type: 3}
   Type: 1
-  Stat: 1
+  Stat: 0
   Target: 0
   TargetStat: 1

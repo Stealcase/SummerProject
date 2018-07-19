@@ -9,16 +9,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7b01f1d570e5a8948bb7db2641e362fa, type: 3}
-  m_Name: Run
+  m_Name: Block
   m_EditorClassIdentifier: 
-  Name: Run
-  Description: 
-  BaseValue: 1
-  Multiplier: 0
-  Priority: 2
-  Cooldown: 1
-  Sprite: {fileID: 21300000, guid: ef7244118c1e249e4bbbdd56fb60e50d, type: 3}
+  Name: Block
+  Description: Block the next attack
+  BaseValue: 5
+  Multiplier: 1
+  Priority: 3
+  Cooldown: 3
+  Sprite: {fileID: 21300000, guid: 22e4188ec93ff4a92838da8ba1ce525b, type: 3}
   Type: 1
-  Stat: 1
+  Stat: 2
   Target: 0
-  TargetStat: 1
+  TargetStat: 2
