@@ -17,6 +17,7 @@ MonoBehaviour:
   Multiplier: 0
   Priority: 1
   Cooldown: 2
+  Skill: {fileID: 11400000, guid: 0a01c0a031512254eba1a51d66100c91, type: 2}
   Sprite: {fileID: 21300000, guid: 678c0534175cd4943bed3bac5cf2a33d, type: 3}
   Type: 1
   Stat: 0

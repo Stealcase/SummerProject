@@ -37,9 +37,32 @@ public class Move : ScriptableObject {
     public string Name;
     public string Description;
     public int BaseValue;
-    public int Multiplier;
+    public int ScaleValue
+    {
+        get
+        {
+            float scaler = StatValue.Value * Multiplier;
+            float total = BaseValue + scaler;
+
+            //Round up if total <= 5, round down if total > 5
+            if (total <= 5)
+                return (int)Math.Floor(scaler);
+            else
+                return (int)Math.Ceiling(scaler);
+        }
+    }
+    public int TotalValue
+    {
+        get
+        {
+            return BaseValue + ScaleValue;
+        }
+    }
+    public float Multiplier;
     public int Priority;
     public int Cooldown;
+
+    public IntVariable StatValue;
 
     public Sprite Sprite;
 
@@ -50,13 +73,22 @@ public class Move : ScriptableObject {
 
     public string GetFormattedDescription()
     {
-
         if (Description != "")
         {
             string d = Description;
 
-            d = InsertValueIntoString(d, "DAMAGE", BaseValue);
-            d = InsertValueIntoString(d, "HEALING", BaseValue);
+            d = InsertValueIntoString(d, "BASEVAL", BaseValue);
+
+            if (ScaleValue != 0)
+            {
+                string scaleString = "(+" + ScaleValue + ")";
+                d = InsertValueIntoString(d, "SCALESTRING", scaleString);
+            }
+            else
+                d = InsertValueIntoString(d, " SCALESTRING", "");
+
+            d = InsertValueIntoString(d, "SCALEVAL", ScaleValue);
+            d = InsertValueIntoString(d, "TOTALVAL", TotalValue);
 
             return d;
         }
@@ -67,7 +99,6 @@ public class Move : ScriptableObject {
     private string InsertValueIntoString(string target, string delim, object value)
     {
         string[] s = target.Split(new string[] { delim }, StringSplitOptions.None);
-        Debug.Log(s.Length);
 
         if (s.Length > 1)
             return s[0] + value + s[1];
