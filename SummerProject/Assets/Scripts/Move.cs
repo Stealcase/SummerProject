@@ -41,14 +41,7 @@ public class Move : ScriptableObject {
     {
         get
         {
-            float scaler = StatValue.Value * Multiplier;
-            float total = BaseValue + scaler;
-
-            //Round up if total <= 5, round down if total > 5
-            if (total <= 5)
-                return (int)Math.Floor(scaler);
-            else
-                return (int)Math.Ceiling(scaler);
+            return (int)Math.Round(StatValue.Value * Multiplier);
         }
     }
     public int TotalValue
