@@ -140,6 +140,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31ac774288ea5464a85157f1184a9a1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DefaultState: 1
+  BattleState: 0
   lastPlayerPos: {x: 0, y: 0, z: 0}
 --- !u!4 &33253796
 Transform:

@@ -11,8 +11,13 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
 
     // Static variable for GameManager to instantiate itself.
+
     public static GameManager Instance;
     public StateMachine gameStateMachine;
+
+    public bool DefaultState;
+    public bool BattleState;
+
     private int previousSceneIdx;
 
     public Vector3 lastPlayerPos;
@@ -32,11 +37,15 @@ public class GameManager : MonoBehaviour {
 
         gameStateMachine = new StateMachine();
 
-        //TEMPORARY FOR TESTING PURPOSES, DefaultState does nothing atm.
-        if (gameStateMachine.CurrentState == null)
+        if (DefaultState && BattleState)
         {
-            ChangeGameState(new BattleState());
+            BattleState = false;
+            ChangeGameState(new DefaultState());
         }
+        else if (DefaultState)
+            ChangeGameState(new DefaultState());
+        else if (BattleState)
+            ChangeGameState(new BattleState());
 
 	}
 	
