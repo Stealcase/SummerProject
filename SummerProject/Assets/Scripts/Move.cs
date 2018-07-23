@@ -41,6 +41,10 @@ public class Move : ScriptableObject {
     {
         get
         {
+            if (StatValue == null)
+            {
+                throw new Exception("Missing Player Stat reference! Move asset: " + Name);
+            }
             return (int)Math.Round(StatValue.Value * Multiplier);
         }
     }
@@ -57,7 +61,18 @@ public class Move : ScriptableObject {
 
     public IntVariable StatValue;
 
-    public Sprite Sprite;
+    [SerializeField]
+    private Sprite sprite;
+
+    public Sprite Sprite
+    {
+        get
+        {
+            if (sprite == null)
+                throw new Exception("Missing Sprite reference! Move asset: " + Name);
+            return sprite;
+        }
+    }
 
     public MoveType Type;
     public MoveStat Stat;

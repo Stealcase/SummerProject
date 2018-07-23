@@ -12,7 +12,7 @@ public class MovePhase : IState {
     private SelectedMove selectedMoveRef;
     private Move selectedMove;
 
-    private BattleState battleState;
+    private BattleManager battleManager;
 
     // private XmlReader xml;
 
@@ -20,15 +20,15 @@ public class MovePhase : IState {
      * BattleState passes MovePhase a reference to itself when this happens. Therefore
      * the MovePhase constructor takes in a BattleState object.
      */
-    public MovePhase(BattleState battleState)
+    public MovePhase(BattleManager battleManager)
     {
-        this.battleState = battleState;
+        this.battleManager = battleManager;
     }
 
     public void Enter()
     {
         Debug.Log("Entered Move Phase");
-        selectedMoveRef = (SelectedMove)AssetDatabase.LoadAssetAtPath("Assets/Scripts/Utility/Test/SelectedMove.asset", typeof(SelectedMove));
+        selectedMoveRef = battleManager.SelectedMove;
         selectedMoveRef.ClearMove();
         // xml = XmlReader.Create(@"C:\Users\Martin\Documents\GitHub\SummerProject\SummerProject\Assets\Scripts\MoveData\MoveData.xml");
     }
@@ -67,8 +67,8 @@ public class MovePhase : IState {
         //If both moves have been selected, then ResolveMovePhase.
         if (playerMove1 != null && playerMove2 != null)
         {
-            //battleState.RunResolvePhase();
             Debug.Log("You selected " + playerMove1.Name + " and " + playerMove2.Name + " bruh");
+            battleManager.RunResolvePhase();
             return;
         }
     }
@@ -76,7 +76,8 @@ public class MovePhase : IState {
     //On exit, pass selected moves to BattleState and reset.
     public void Exit()
     {
-
+        battleManager.PlayerMove1 = playerMove1;
+        battleManager.PlayerMove2 = playerMove2;
     }
 
 

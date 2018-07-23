@@ -11,3 +11,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19f3cf7d82e82bc4ba8b1ff01f5077c3, type: 3}
   m_Name: SelectedMove
   m_EditorClassIdentifier: 
+  move: {fileID: 0}

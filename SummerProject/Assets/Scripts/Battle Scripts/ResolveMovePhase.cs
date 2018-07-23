@@ -11,14 +11,14 @@ public enum Turn
 public class ResolveMovePhase : IState {
 
     private Turn turn;
-    private BattleState battleState;
+    private BattleManager battleState;
 
     private Enemy enemyScript;
 
-    private IMove playerMove1;
-    private IMove playerMove2;
+    private Move playerMove1;
+    private Move playerMove2;
 
-    public ResolveMovePhase(BattleState battleState)
+    public ResolveMovePhase(BattleManager battleState)
     {
         this.battleState = battleState;
     }
@@ -39,12 +39,10 @@ public class ResolveMovePhase : IState {
     public void Execute()
     {
 
-
-
         if (turn == Turn.Player)
         {
-            battleState.EnemyScript.LoseHealth(playerMove1.ScaledValue());
-            battleState.EnemyScript.LoseHealth(playerMove2.ScaledValue());
+            battleState.EnemyScript.LoseHealth(playerMove1.TotalValue);
+            battleState.EnemyScript.LoseHealth(playerMove2.TotalValue);
             turn = Turn.Enemy;
         }
         else if (turn == Turn.Enemy)
