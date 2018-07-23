@@ -5,7 +5,6 @@ using UnityEngine;
 public class BattleState : IState {
 
     //battleStateMachine switches between battle phases
-    private StateMachine battleStateMachine;
     public StateMachine BattleStateMachine { get; private set; }
 
     private GameObject enemy;
@@ -24,8 +23,8 @@ public class BattleState : IState {
 	public void Enter()
     {
         GameManager.Instance.LoadScene("BattleScenePlaceholder");
-        battleStateMachine = new StateMachine();
-        battleStateMachine.ChangeState(new MovePhase(this));
+        BattleStateMachine = new StateMachine();
+        BattleStateMachine.ChangeState(new MovePhase(this));
     }
 
     public void Execute()
@@ -49,7 +48,7 @@ public class BattleState : IState {
             return;
         }
 
-        battleStateMachine.UpdateState();
+        BattleStateMachine.UpdateState();
     }
 
     public void Exit()
@@ -62,13 +61,13 @@ public class BattleState : IState {
     //Switches to MovePhase
     public void RunMovePhase()
     {
-        this.battleStateMachine.ChangeState(new MovePhase(this));
+        this.BattleStateMachine.ChangeState(new MovePhase(this));
     }
 
     //Switches to ResolveMovePhase
     public void RunResolvePhase()
     {
-        this.battleStateMachine.ChangeState(new ResolveMovePhase(this));
+        this.BattleStateMachine.ChangeState(new ResolveMovePhase(this));
     }
 
     public string Log()
