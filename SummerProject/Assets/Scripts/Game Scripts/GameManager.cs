@@ -13,10 +13,6 @@ public class GameManager : MonoBehaviour {
     // Static variable for GameManager to instantiate itself.
 
     public static GameManager Instance;
-    public StateMachine gameStateMachine;
-
-    public bool DefaultState;
-    public bool BattleState;
 
     private int previousSceneIdx;
 
@@ -35,28 +31,11 @@ public class GameManager : MonoBehaviour {
         
         DontDestroyOnLoad(this.gameObject);
 
-        gameStateMachine = new StateMachine();
-
-        if (DefaultState && BattleState)
-        {
-            BattleState = false;
-            ChangeGameState(new DefaultState());
-        }
-        else if (DefaultState)
-            ChangeGameState(new DefaultState());
-        else if (BattleState)
-            ChangeGameState(new BattleState());
-
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        gameStateMachine.UpdateState();
-
-        if (CurrentGameState() != "Battle")
-        {
-            lastPlayerPos = Player.Instance.transform.position;
-        }
+         
 	}
 
     // Other scripts load scenes through the GameManager.
@@ -71,33 +50,5 @@ public class GameManager : MonoBehaviour {
     public void LoadPreviousScene()
     {
         SceneManager.LoadScene(previousSceneIdx);
-    }
-
-    /* Other scripts can tell GM to change states by calling
-     * this method and passing it an IState object*/
-    public void ChangeGameState(IState newState)
-    {
-        gameStateMachine.ChangeState(newState);
-        Debug.Log("Previous GAME State: " + PreviousGameState());
-        Debug.Log("Current GAME State: " + CurrentGameState());
-    }
-
-    public void ChangeToPreviousGameState()
-    {
-        gameStateMachine.ChangeToPreviousState();
-        Debug.Log("Previous GAME State: " + PreviousGameState());
-        Debug.Log("Current GAME State: " + CurrentGameState());
-    }
-
-    // Returns the name of the current game state. (Bad method name)
-    public string CurrentGameState()
-    {
-        return gameStateMachine.LogCurrent();
-    }
-
-    // Returns the name of the previous game state. (Bad method name)
-    public string PreviousGameState()
-    {
-        return gameStateMachine.LogPrevious();
     }
 }

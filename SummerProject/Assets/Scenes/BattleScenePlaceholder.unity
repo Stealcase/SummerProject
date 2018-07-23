@@ -609,10 +609,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textName: {fileID: 1468081177}
+  textDesc: {fileID: 0}
   sprite: {fileID: 591466512}
   move: {fileID: 0}
   selectedMove: {fileID: 0}
-  textDesc: {fileID: 0}
 --- !u!114 &342747893
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1348,8 +1348,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 517379167}
   m_HandleRect: {fileID: 517379166}
   m_Direction: 2
-  m_Value: 0.49999985
-  m_Size: 0.5030166
+  m_Value: 0.4999999
+  m_Size: 0.5026571
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1809,7 +1809,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.15}
+  m_AnchoredPosition: {x: 0, y: -0.14999962}
   m_SizeDelta: {x: -10.3, y: -4.29}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &621363453
@@ -2152,6 +2152,47 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 665509669}
+--- !u!1 &721862905
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 721862907}
+  - component: {fileID: 721862906}
+  m_Layer: 0
+  m_Name: BattleManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &721862906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 721862905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5368a954c42afab43a7aa3739167fefb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SelectedMove: {fileID: 11400000, guid: 1e1d3ea198d2b9943b88e72e3bbce52d, type: 2}
+--- !u!4 &721862907
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 721862905}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &733224179
 GameObject:
   m_ObjectHideFlags: 0
@@ -5582,8 +5623,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1305951335}
   m_HandleRect: {fileID: 1305951334}
   m_Direction: 2
-  m_Value: 0.49999994
-  m_Size: 0.449218
+  m_Value: 0.49999988
+  m_Size: 0.448897
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5733,10 +5774,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textName: {fileID: 1296569055}
+  textDesc: {fileID: 531483586}
   sprite: {fileID: 733224181}
   move: {fileID: 11400000, guid: 39082ddee8bb909418ba7455cf980cd0, type: 2}
   selectedMove: {fileID: 11400000, guid: 1e1d3ea198d2b9943b88e72e3bbce52d, type: 2}
-  textDesc: {fileID: 531483586}
 --- !u!114 &1160593531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7239,10 +7280,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textName: {fileID: 494087623}
+  textDesc: {fileID: 0}
   sprite: {fileID: 1713671462}
   move: {fileID: 11400000, guid: 39082ddee8bb909418ba7455cf980cd0, type: 2}
   selectedMove: {fileID: 11400000, guid: 1e1d3ea198d2b9943b88e72e3bbce52d, type: 2}
-  textDesc: {fileID: 0}
 --- !u!114 &1683461207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7759,10 +7800,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textName: {fileID: 936593124}
+  textDesc: {fileID: 0}
   sprite: {fileID: 481948701}
   move: {fileID: 0}
   selectedMove: {fileID: 0}
-  textDesc: {fileID: 0}
 --- !u!114 &1764523415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7926,10 +7967,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textName: {fileID: 640717758}
+  textDesc: {fileID: 0}
   sprite: {fileID: 1593758671}
   move: {fileID: 0}
   selectedMove: {fileID: 0}
-  textDesc: {fileID: 0}
 --- !u!114 &1771409002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8093,10 +8134,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textName: {fileID: 1672842225}
+  textDesc: {fileID: 0}
   sprite: {fileID: 999847365}
   move: {fileID: 0}
   selectedMove: {fileID: 0}
-  textDesc: {fileID: 0}
 --- !u!114 &1780279955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8363,10 +8404,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textName: {fileID: 1101467473}
+  textDesc: {fileID: 0}
   sprite: {fileID: 317532199}
   move: {fileID: 0}
   selectedMove: {fileID: 0}
-  textDesc: {fileID: 0}
 --- !u!114 &1827579347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8530,10 +8571,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textName: {fileID: 1285066407}
+  textDesc: {fileID: 531483586}
   sprite: {fileID: 1691375947}
   move: {fileID: 11400000, guid: 39fa9d639da49ae4dabf5fc0e5e6d54a, type: 2}
   selectedMove: {fileID: 11400000, guid: 1e1d3ea198d2b9943b88e72e3bbce52d, type: 2}
-  textDesc: {fileID: 531483586}
 --- !u!114 &1855412733
 MonoBehaviour:
   m_ObjectHideFlags: 0

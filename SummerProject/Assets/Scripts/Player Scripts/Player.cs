@@ -47,19 +47,6 @@ public class Player : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-        //Temporary code for testing state change.
-        if (Input.GetKeyUp(KeyCode.E))
-        {
-            if (GameManager.Instance.CurrentGameState() != "Default")
-            {
-                GameManager.Instance.ChangeGameState(new DefaultState());
-            }
-            else
-            {
-                Debug.Log("Already in Default State");
-            }
-        }
 		
 	}
 
@@ -67,7 +54,7 @@ public class Player : MonoBehaviour {
     {
         if (coll.gameObject.CompareTag("Enemy"))
         {
-            GameManager.Instance.ChangeGameState(new BattleState());
+            GameManager.Instance.LoadScene("BattleScenePlaceholder");
         }
     }
 
