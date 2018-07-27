@@ -11,23 +11,25 @@ public enum Turn
 public class ResolveMovePhase : IState {
 
     private Turn turn;
-    private BattleManager battleState;
-
-    private Enemy enemyScript;
+    private BattleManager battleManager;
 
     private Move playerMove1;
     private Move playerMove2;
 
-    public ResolveMovePhase(BattleManager battleState)
+    private int playerHP;
+    private IntVariable enemyHP;
+
+    public ResolveMovePhase(BattleManager battleManager)
     {
-        this.battleState = battleState;
+        this.battleManager = battleManager;
     }
     
     public void Enter()
     {
-        this.playerMove1 = battleState.PlayerMove1;
-        this.playerMove2 = battleState.PlayerMove2;
-        this.enemyScript = battleState.EnemyScript;
+        playerMove1 = battleManager.PlayerMove1;
+        playerMove2 = battleManager.PlayerMove2;
+        enemyHP = battleManager.EnemyHPVar;
+        
         turn = Turn.Player;
         Debug.Log("Entered Resolve Phase");
     }
@@ -41,13 +43,15 @@ public class ResolveMovePhase : IState {
 
         if (turn == Turn.Player)
         {
-            battleState.EnemyScript.LoseHealth(playerMove1.TotalValue);
-            battleState.EnemyScript.LoseHealth(playerMove2.TotalValue);
+            enemyHP.Value -= playerMove1.TotalValue;
+            Debug.Log(playerMove1.TotalValue);
+            enemyHP.Value -= playerMove2.TotalValue;
+            Debug.Log(playerMove2.TotalValue);
             turn = Turn.Enemy;
         }
         else if (turn == Turn.Enemy)
         {
-            battleState.RunMovePhase();
+            battleManager.RunMovePhase();
             return;
         }
     }
@@ -55,8 +59,8 @@ public class ResolveMovePhase : IState {
     //Reset for good measure.
     public void Exit()
     {
-        battleState.PlayerMove1 = null;
-        battleState.PlayerMove2 = null;
+        battleManager.PlayerMove1 = null;
+        battleManager.PlayerMove2 = null;
         playerMove1 = null;
         playerMove2 = null;
     }

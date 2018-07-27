@@ -1,23 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BattleManager : MonoBehaviour {
 
     //battleStateMachine switches between battle states
     public StateMachine BattleStateMachine { get; private set; }
 
-    private GameObject enemy;
-    public Enemy EnemyScript { get; private set; }
+    public IntVariable PlayerHPVar;
+    public IntVariable EnemyHPVar;
 
-    public SelectedMove SelectedMove;
+    public SelectedMove SelectedMoveVar;
 
     //Move variables for passing between phases
     public Move PlayerMove1 { get; set; }
     public Move PlayerMove2 { get; set; }
 
+    public IntVariable PrevSceneIndexVar;
+
+    [Tooltip("If specified, this scene is loaded upon battle exit instead of the previous scene")]
+    public string NextSceneName;
+
     //When Battle is entered a MovePhase is started
-	public void Awake()
+    public void Awake()
     {
         Debug.Log("BattleManager: Entered Battle");
         BattleStateMachine = new StateMachine();
@@ -26,21 +32,21 @@ public class BattleManager : MonoBehaviour {
 
     public void Update()
     {
-        /* For testing: An the enemy prefab is pre-placed into the battlescene, so 
-        *  FindWithTag is used to acquire a reference to the enemy GameObject. Logical 
-        *  thing is to tell BattleState what enemy to load based on which one the Player 
-        *  collided with.
-        */
-        if (enemy == null)
-        {
-            enemy = GameObject.FindWithTag("Enemy");
-            EnemyScript = enemy.GetComponent<Enemy>();
-        }
-        
-        if (EnemyScript.IsDead)
+        if (EnemyHPVar.Value <= 0)
         {
             Debug.Log("VICTORY!!!");
-            GameManager.Instance.LoadScene("BasicMovementTest");
+            if (PrevSceneIndexVar != null && NextSceneName == "")
+            {
+                SceneManager.LoadScene(PrevSceneIndexVar.Value);
+                return;
+            }
+            else if (NextSceneName != "")
+            {
+                SceneManager.LoadScene(NextSceneName);
+                return;
+            }
+
+            Debug.Log("BattleManager: Previous Scene Index reference missing!");
             return;
         }
 
@@ -55,12 +61,12 @@ public class BattleManager : MonoBehaviour {
     //Switches to MovePhase
     public void RunMovePhase()
     {
-        this.BattleStateMachine.ChangeState(new MovePhase(this));
+        BattleStateMachine.ChangeState(new MovePhase(this));
     }
 
     //Switches to ResolveMovePhase
     public void RunResolvePhase()
     {
-        this.BattleStateMachine.ChangeState(new ResolveMovePhase(this));
+        BattleStateMachine.ChangeState(new ResolveMovePhase(this));
     }
 }

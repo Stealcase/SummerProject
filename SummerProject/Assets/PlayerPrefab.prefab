@@ -24,7 +24,6 @@ GameObject:
   - component: {fileID: 114526419171675926}
   - component: {fileID: 61889785888655028}
   - component: {fileID: 95402031406030138}
-  - component: {fileID: 114166381273994092}
   m_Layer: 0
   m_Name: PlayerPrefab
   m_TagString: Player
@@ -108,22 +107,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114166381273994092
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1786922061069688}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17e8018e107195c4cbf1cfbeda1179ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 20
-  will: 1
-  physical: 1
-  weapon: 1
-  speed: 1
 --- !u!114 &114526419171675926
 MonoBehaviour:
   m_ObjectHideFlags: 1

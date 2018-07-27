@@ -113,49 +113,25 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &33253794
+--- !u!1 &487428396 stripped
 GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 33253796}
-  - component: {fileID: 33253795}
-  m_Layer: 0
-  m_Name: GameManagerObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &33253795
+  m_PrefabParentObject: {fileID: 1786922061069688, guid: 60164a889f733154da5cf7d4a99305b4,
+    type: 2}
+  m_PrefabInternal: {fileID: 684759468}
+--- !u!114 &487428402
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 33253794}
+  m_GameObject: {fileID: 487428396}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31ac774288ea5464a85157f1184a9a1d, type: 3}
+  m_Script: {fileID: 11500000, guid: 6bc34234525c8c640b0285b7924c6caa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DefaultState: 1
-  BattleState: 0
-  lastPlayerPos: {x: 0, y: 0, z: 0}
---- !u!4 &33253796
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 33253794}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  targetTag: Player
+  nextSceneName: BattleScenePlaceholder
+  PrevSceneIndexVar: {fileID: 11400000, guid: 4e519d80ab295f1499d060dd8f7f6789, type: 2}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -287,11 +263,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17e8018e107195c4cbf1cfbeda1179ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 20
-  will: 1
-  physical: 1
-  weapon: 1
-  speed: 1
 --- !u!95 &910512198
 Animator:
   serializedVersion: 3

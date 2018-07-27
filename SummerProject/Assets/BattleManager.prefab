@@ -51,4 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5368a954c42afab43a7aa3739167fefb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SelectedMove: {fileID: 11400000, guid: 1e1d3ea198d2b9943b88e72e3bbce52d, type: 2}
+  PlayerHPVar: {fileID: 11400000, guid: 5fdf76e0b5f528f43a7e694bcfedb0b0, type: 2}
+  EnemyHPVar: {fileID: 11400000, guid: d7e4e4f1b633b53409cac193f51e437d, type: 2}
+  SelectedMoveVar: {fileID: 11400000, guid: 1e1d3ea198d2b9943b88e72e3bbce52d, type: 2}
+  PrevSceneIndexVar: {fileID: 11400000, guid: 4e519d80ab295f1499d060dd8f7f6789, type: 2}
+  NextSceneName: 

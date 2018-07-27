@@ -69,7 +69,7 @@ public class Move : ScriptableObject {
         get
         {
             if (sprite == null)
-                throw new Exception("Missing Sprite reference! Move asset: " + Name);
+                Debug.Log("Missing Sprite reference! Move asset: " + Name);
             return sprite;
         }
     }
