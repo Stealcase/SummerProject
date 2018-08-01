@@ -34,7 +34,7 @@ public class ResolveMovePhase : IState {
         Debug.Log("Entered Resolve Phase");
     }
 
-    /* To test the phases, the move is "resolved" by simply applying the 
+    /* To test the phases, the move is "resolved" by applying the 
      * damage of both moves to the enemy. When the turn switches, MovePhase
      * is entered again and new moves can be selected. Repeats until enemy is dead.
      */
