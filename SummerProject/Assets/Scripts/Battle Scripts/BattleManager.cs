@@ -9,6 +9,8 @@ public class BattleManager : MonoBehaviour {
     public StateMachine BattleStateMachine { get; private set; }
 
     public IntVariable PlayerHPVar;
+    public IntVariable PlayerCourageVar;
+    public IntVariable PlayerChargeVar;
     public IntVariable EnemyHPVar;
 
     public SelectedMove SelectedMoveVar;

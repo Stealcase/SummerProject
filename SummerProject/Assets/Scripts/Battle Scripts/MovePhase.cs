@@ -27,7 +27,7 @@ public class MovePhase : IState {
 
     public void Enter()
     {
-        Debug.Log("Entered Move Phase");
+        Debug.Log("MOVE PHASE");
         selectedMoveRef = battleManager.SelectedMoveVar;
         selectedMoveRef.ClearMove();
         // xml = XmlReader.Create(@"C:\Users\Martin\Documents\GitHub\SummerProject\SummerProject\Assets\Scripts\MoveData\MoveData.xml");

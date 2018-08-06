@@ -25,6 +25,7 @@ public enum Target
 
 public enum TargetStat
 {
+    None,
     HP,
     Courage,
     Shield,
