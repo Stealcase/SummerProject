@@ -20,9 +20,12 @@ public class ResolveMovePhase : IState {
     private IntVariable playerCourage;
     private IntVariable playerCharge;
     private IntVariable enemyHP;
+    private IntVariable enemyCourage;
 
-    private bool roar;
-    private bool atkSuccess;
+    private bool roar = false;
+    private bool run = false;
+    private bool slash;
+    private bool atkSuccess = false;
 
     public ResolveMovePhase(BattleManager battleManager)
     {
@@ -39,9 +42,9 @@ public class ResolveMovePhase : IState {
         playerCharge = battleManager.PlayerChargeVar;
 
         enemyHP = battleManager.EnemyHPVar;
+        enemyCourage = battleManager.EnemyCourageVar;
 
-        roar = false;
-        atkSuccess = false;
+        slash = battleManager.slash;
 
         turn = Turn.Player;
         Debug.Log("RESOLVE PHASE");
@@ -56,10 +59,6 @@ public class ResolveMovePhase : IState {
 
         if (turn == Turn.Player)
         {
-            /*enemyHP.Value -= playerMove1.TotalValue;
-            Debug.Log(playerMove1.TotalValue);
-            enemyHP.Value -= playerMove2.TotalValue;
-            Debug.Log(playerMove2.TotalValue);*/
 
             //Combo/immunity check should happen here
             
@@ -161,6 +160,7 @@ public class ResolveMovePhase : IState {
             else if (move.Name == "Run")
             {
                 Debug.Log(move.Name + " (Does nothing)");
+                run = true;
             }
             else if (move.Name == "Evade")
             {
@@ -179,8 +179,16 @@ public class ResolveMovePhase : IState {
         {
             if (move.TargetStat.ToString() == "HP")
             {
-                if (move.Name == "Slash")
+                if (move.Name == "Slash" && !slash)
+                {
                     Debug.Log(move.Name + ": Enemy HP -" + move.TotalValue + " (Not fully implemented)");
+                    battleManager.slash = true;
+                }
+                else if (move.Name == "Slash" && slash)
+                {
+                    Debug.Log("Crazy Slash: Enemy HP -" + move.TotalValue);
+                    battleManager.slash = false;
+                }
                 else
                     Debug.Log(move.Name + ": Enemy HP -" + move.TotalValue);
 
@@ -190,7 +198,9 @@ public class ResolveMovePhase : IState {
             }
             else if (move.Name == "Declare Amazingness")
             {
-                Debug.Log(move.Name + " (Does nothing)");
+                Debug.Log(move.Name + ": Enemy Courage -" + move.TotalValue);
+                enemyCourage.Value -= move.TotalValue;
+                Debug.Log("Enemy Courage: " + enemyCourage.Value);
             }
         }
     }

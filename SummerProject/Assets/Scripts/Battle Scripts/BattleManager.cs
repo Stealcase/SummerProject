@@ -12,6 +12,7 @@ public class BattleManager : MonoBehaviour {
     public IntVariable PlayerCourageVar;
     public IntVariable PlayerChargeVar;
     public IntVariable EnemyHPVar;
+    public IntVariable EnemyCourageVar;
 
     public SelectedMove SelectedMoveVar;
 
@@ -24,12 +25,17 @@ public class BattleManager : MonoBehaviour {
     [Tooltip("If specified, this scene is loaded upon battle exit instead of the previous scene")]
     public string NextSceneName;
 
+    //Bools for special cases
+    public bool slash;
+
     //When Battle is entered a MovePhase is started
     public void Awake()
     {
         Debug.Log("BattleManager: Entered Battle");
         BattleStateMachine = new StateMachine();
         BattleStateMachine.ChangeState(new MovePhase(this));
+
+        slash = false;
     }
 
     public void Update()

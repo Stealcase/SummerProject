@@ -17,8 +17,9 @@ MonoBehaviour:
   Multiplier: 0
   Priority: 2
   Cooldown: 1
-  Sprite: {fileID: 21300000, guid: ef7244118c1e249e4bbbdd56fb60e50d, type: 3}
+  StatValue: {fileID: 11400000, guid: 0a01c0a031512254eba1a51d66100c91, type: 2}
+  sprite: {fileID: 0}
   Type: 1
   Stat: 1
   Target: 0
-  TargetStat: 1
+  TargetStat: 0
