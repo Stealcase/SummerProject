@@ -16,6 +16,8 @@ public class BattleManager : MonoBehaviour {
 
     public SelectedMove SelectedMoveVar;
 
+    public EnemyMoveSelector EMoveSelector;
+
     //Move variables for passing between phases
     public Move PlayerMove1 { get; set; }
     public Move PlayerMove2 { get; set; }
@@ -34,6 +36,7 @@ public class BattleManager : MonoBehaviour {
         Debug.Log("BattleManager: Entered Battle");
         BattleStateMachine = new StateMachine();
         BattleStateMachine.ChangeState(new MovePhase(this));
+        EMoveSelector = GetComponent<EnemyMoveSelector>();
 
         slash = false;
     }
@@ -43,6 +46,23 @@ public class BattleManager : MonoBehaviour {
         if (EnemyHPVar.Value <= 0)
         {
             Debug.Log("VICTORY!!!");
+            if (PrevSceneIndexVar != null && NextSceneName == "")
+            {
+                SceneManager.LoadScene(PrevSceneIndexVar.Value);
+                return;
+            }
+            else if (NextSceneName != "")
+            {
+                SceneManager.LoadScene(NextSceneName);
+                return;
+            }
+
+            Debug.Log("BattleManager: Previous Scene Index reference missing!");
+            return;
+        }
+        else if (PlayerHPVar.Value <= 0)
+        {
+            Debug.Log("DEAD!!!");
             if (PrevSceneIndexVar != null && NextSceneName == "")
             {
                 SceneManager.LoadScene(PrevSceneIndexVar.Value);

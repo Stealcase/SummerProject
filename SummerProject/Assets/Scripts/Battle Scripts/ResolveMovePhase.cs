@@ -16,6 +16,10 @@ public class ResolveMovePhase : IState {
     private Move playerMove1;
     private Move playerMove2;
 
+    private EnemyMoveSelector EMoveSelector;
+
+    private EnemyMove enemyMove1;
+
     private IntVariable playerHP;
     private IntVariable playerCourage;
     private IntVariable playerCharge;
@@ -46,16 +50,16 @@ public class ResolveMovePhase : IState {
 
         slash = battleManager.slash;
 
+        EMoveSelector = battleManager.EMoveSelector;
+
         turn = Turn.Player;
         Debug.Log("RESOLVE PHASE");
     }
 
-    /* To test the phases, the move is "resolved" by applying the 
-     * damage of both moves to the enemy. When the turn switches, MovePhase
-     * is entered again and new moves can be selected. Repeats until enemy is dead.
-     */
     public void Execute()
     {
+
+        //Speed check here
 
         if (turn == Turn.Player)
         {
@@ -103,6 +107,14 @@ public class ResolveMovePhase : IState {
         }
         else if (turn == Turn.Enemy)
         {
+
+            EMoveSelector.SelectMoves();
+            enemyMove1 = EMoveSelector.selectedMove;
+            Debug.Log("Enemy used " + enemyMove1.Name);
+
+            playerHP.Value -= enemyMove1.BaseValue;
+            Debug.Log("Player HP: " + playerHP.Value);
+
             battleManager.RunMovePhase();
             return;
         }
