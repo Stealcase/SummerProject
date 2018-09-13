@@ -270,6 +270,12 @@ Prefab:
         type: 2}
     - target: {fileID: 114200761076228440, guid: 5da44f00f202ce74e8851ed840288754,
         type: 2}
+      propertyPath: EnemyHPVar
+      value: 
+      objectReference: {fileID: 11400000, guid: 7e739a1e2d365e44c8a1f6bad7eb5083,
+        type: 2}
+    - target: {fileID: 114200761076228440, guid: 5da44f00f202ce74e8851ed840288754,
+        type: 2}
       propertyPath: EnemyCourageVar
       value: 
       objectReference: {fileID: 11400000, guid: 846b7e9863f03d340a7b158aff0cd952,
