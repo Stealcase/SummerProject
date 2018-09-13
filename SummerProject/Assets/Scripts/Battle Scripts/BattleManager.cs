@@ -16,7 +16,8 @@ public class BattleManager : MonoBehaviour {
 
     public SelectedMove SelectedMoveVar;
 
-    public EnemyMoveSelector EMoveSelector;
+    public EnemyMoveSelector EnemyMoveSelector;
+    public Queue<EnemyMove> EnemyMoveQueue;
 
     //Move variables for passing between phases
     public Move PlayerMove1 { get; set; }
@@ -34,10 +35,13 @@ public class BattleManager : MonoBehaviour {
     public void Awake()
     {
         Debug.Log("BattleManager: Entered Battle");
+
+        EnemyMoveSelector = GetComponent<EnemyMoveSelector>();
+        EnemyMoveQueue = new Queue<EnemyMove>();
+
         BattleStateMachine = new StateMachine();
         BattleStateMachine.ChangeState(new MovePhase(this));
-        EMoveSelector = GetComponent<EnemyMoveSelector>();
-
+        
         slash = false;
     }
 
