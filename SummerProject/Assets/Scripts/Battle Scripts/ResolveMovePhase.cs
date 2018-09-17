@@ -14,12 +14,13 @@ public class ResolveMovePhase : IState {
     private Turn turn;
     private BattleManager bm;
 
-    private Move playerMove1;
-    private Move playerMove2;
+    private Move playerAtk;
+    private Move playerMod;
 
     private EnemyMove enemyMove;
 
     private IntVariable playerHP;
+    private IntVariable playerMaxHP;
     private IntVariable playerCourage;
     private IntVariable playerCharge;
     private IntVariable enemyHP;
@@ -43,10 +44,19 @@ public class ResolveMovePhase : IState {
     
     public void Enter()
     {
-        playerMove1 = bm.PlayerMove1;
-        playerMove2 = bm.PlayerMove2;
+        if (bm.PlayerMove1.Type == MoveType.Attack)
+        {
+            playerAtk = bm.PlayerMove1;
+            playerMod = bm.PlayerMove2;
+        }
+        else
+        {
+            playerAtk = bm.PlayerMove2;
+            playerMod = bm.PlayerMove1;
+        }
 
         playerHP = bm.PlayerHPVar;
+        playerMaxHP = bm.PlayerMaxHPVar;
         playerCourage = bm.PlayerCourageVar;
         playerCharge = bm.PlayerChargeVar;
 
@@ -55,15 +65,20 @@ public class ResolveMovePhase : IState {
 
         slash = bm.slash;
 
-        //TODO: Add speed check to determine turn order
         Debug.Log("----------RESOLVE PHASE----------");
 
-        if ((playerMove1.Name == "Run" || playerMove2.Name == "Run") || (playerMove1.Name == "Block" || playerMove2.Name == "Block"))
+        if (playerMod.Name == "Run")
         {
             turn = Turn.Player;
         }
+        else if (playerMod.Name == "Block")
+        {
+            turn = Turn.Player;
+            block = true;
+        }
         else
         {
+            //TODO: Add speed check to determine turn order
             turn = Turn.Player;
         }
     }
@@ -76,32 +91,30 @@ public class ResolveMovePhase : IState {
             Debug.Log("PLAYER TURN");
             //Combo/immunity check should happen here
             
-            if (playerMove1.Priority > playerMove2.Priority)
+            if (playerAtk.Priority > playerMod.Priority && !block)
             {
-                ExecutePlayerMove(playerMove1);
-                ExecutePlayerMove(playerMove2);
+                ExecutePlayerAtk(playerAtk);
+                ExecutePlayerMod(playerMod);
             }
-            else if (playerMove2.Priority > playerMove1.Priority)
+            else if (playerMod.Priority > playerAtk.Priority && !block)
             {
-                ExecutePlayerMove(playerMove2);
-                ExecutePlayerMove(playerMove1);
+                ExecutePlayerMod(playerMod);
+                ExecutePlayerAtk(playerAtk);
+            }
+            else if (block)
+            {
+                ExecutePlayerMod(playerMod);
             }
             
+            //TODO: Fix Roar
             if (roar)
             {
                 if (playerCourage.Value < 0)
                 {
-                    if (playerMove1.Name == "Roar")
+                    if (playerMod.Name == "Roar")
                     {
-                        Debug.Log(playerMove1.Name + ": Player Courage +" + playerMove1.TotalValue);
-                        playerCourage.Value += playerMove1.TotalValue;
-                        Debug.Log("Player Courage: " + playerCourage.Value);
-
-                    }
-                    else if (playerMove2.Name == "Roar")
-                    {
-                        Debug.Log(playerMove2.Name + ": Player Courage +" + playerMove2.TotalValue);
-                        playerCourage.Value += playerMove2.TotalValue;
+                        Debug.Log(playerMod.Name + ": Player Courage +" + playerMod.TotalValue);
+                        playerCourage.Value += playerMod.TotalValue;
                         Debug.Log("Player Courage: " + playerCourage.Value);
                     }
                 }
@@ -125,12 +138,38 @@ public class ResolveMovePhase : IState {
             //TODO: replace temporary enemy moves
             enemyMove = bm.EnemyMoveQueue.Dequeue();
 
-            Debug.Log("Enemy used " + enemyMove.Name + ": Player HP -" + enemyMove.BaseValue);
-            playerHP.Value -= enemyMove.BaseValue;
-            Debug.Log("Player HP: " + playerHP.Value);
+            if (block && enemyMove.Type == MoveType.Attack)
+            {
+                Debug.Log("Enemy used " + enemyMove.Name + " for " + enemyMove.BaseValue + " Damage");
+                Debug.Log("Player blocks " + playerMod.TotalValue + " Damage");
 
-            if (enemyMove.Type == MoveType.Attack)
+                int damage;
+                damage = enemyMove.BaseValue - playerMod.TotalValue;
+
+                if (damage > 0)
+                {
+                    Debug.Log("Final Damage: " + damage);
+                    playerHP.Value -= damage;
+                }
+                else if (damage <= 0)
+                {
+                    Debug.Log("Final Damage: " + 0);
+                }
+
+                Debug.Log("Player HP: " + playerHP.Value);
+
                 enemyAttacked = true;
+            }
+            else if (enemyMove.Type == MoveType.Attack)
+            {
+                Debug.Log("Enemy used " + enemyMove.Name + ": Player HP -" + enemyMove.BaseValue);
+                playerHP.Value -= enemyMove.BaseValue;
+                Debug.Log("Player HP: " + playerHP.Value);
+            }
+            else if (enemyMove.Type == MoveType.Modifier)
+            {
+                Debug.Log("Enemy used " + enemyMove.Name + " (does nothing)");
+            }
 
             enemyDone = true;
         }
@@ -143,6 +182,13 @@ public class ResolveMovePhase : IState {
             {
                 Debug.Log("Identify: Enemy's next attack is " + bm.EnemyMoveQueue.Peek().Name);
             }
+            else if (block)
+            {
+                if (enemyAttacked)
+                    ExecutePlayerAtk(playerAtk);
+                else
+                    Debug.Log("Block and " + playerAtk.Name + " failed, enemy did not attack");
+            }
 
             bm.RunMovePhase();
             return;
@@ -151,11 +197,10 @@ public class ResolveMovePhase : IState {
 
     public void Exit()
     {
-
         bm.PlayerMove1 = null;
         bm.PlayerMove2 = null;
-        playerMove1 = null;
-        playerMove2 = null;
+        playerAtk = null;
+        playerMod = null;
     }
 
     public string Log()
@@ -163,7 +208,121 @@ public class ResolveMovePhase : IState {
         return "Resolve Move Phase";
     }
 
-    public void ExecutePlayerMove(Move move)
+    public void ExecutePlayerAtk(Move atkMove)
+    {
+        Debug.Log("Executing Player Attack Move");
+
+        if (atkMove.Target.ToString() == "Player")
+        {
+            if (atkMove.TargetStat.ToString() == "HP")
+            {
+                if (!((playerHP.Value + atkMove.TotalValue) > playerMaxHP.Value))
+                {
+                    Debug.Log(atkMove.Name + ": Player HP +" + atkMove.TotalValue);
+                    playerHP.Value += atkMove.TotalValue;
+                    Debug.Log("Player HP: " + playerHP.Value);
+                }
+                else
+                {
+                    playerHP.Value = playerMaxHP.Value;
+                    Debug.Log("Player HP: " + playerHP.Value + " (Max)");
+                }
+            }
+        }
+        else if (atkMove.Target.ToString() == "Enemy")
+        {
+            if (atkMove.TargetStat.ToString() == "HP")
+            {
+                if (atkMove.Name == "Slash" && !slash)
+                {
+                    Debug.Log(atkMove.Name + ": Enemy HP -" + atkMove.TotalValue);
+                    bm.slash = true;
+                }
+                else if (atkMove.Name == "Slash" && slash)
+                {
+                    Debug.Log("Crazy Slash: Enemy HP -" + atkMove.TotalValue);
+                    bm.slash = false;
+                }
+                else
+                    Debug.Log(atkMove.Name + ": Enemy HP -" + atkMove.TotalValue);
+
+                enemyHP.Value -= atkMove.TotalValue;
+                Debug.Log("Enemy HP: " + enemyHP.Value);
+                atkSuccess = true;
+            }
+            else if (atkMove.Name == "Declare Amazingness")
+            {
+                Debug.Log(atkMove.Name + ": Enemy Courage -" + atkMove.TotalValue);
+                enemyCourage.Value -= atkMove.TotalValue;
+                Debug.Log("Enemy Courage: " + enemyCourage.Value);
+            }
+        }        
+    }
+
+    public void ExecutePlayerMod(Move modMove)
+    {
+        Debug.Log("Executing Player Modifier Move");
+
+        if (modMove.Name == "Run")
+        {
+            Debug.Log(modMove.Name + " is in effect");
+            return;
+        }
+
+        if (modMove.Target.ToString() == "Player")
+        {
+            if (modMove.Name == "Hero Pose")
+            {
+                if (atkSuccess)
+                {
+                    Debug.Log(modMove.Name + ": Player Courage +" + modMove.TotalValue);
+                    playerCourage.Value += modMove.TotalValue;
+                    Debug.Log("Player Courage: " + playerCourage.Value);
+                    atkSuccess = false;
+                }
+                else
+                {
+                    Debug.Log("Hero Pose failed, no successful attack");
+                }
+            }
+            else if (modMove.Name == "Roar")
+            {
+                Debug.Log(modMove.Name);
+                roar = true;
+            }
+            else if (modMove.Name == "Charge Sword")
+            {
+                Debug.Log(modMove.Name + ": Player Charge +" + modMove.TotalValue);
+                playerCharge.Value += modMove.TotalValue;
+                Debug.Log("Player Charge: " + playerCharge.Value);
+            }
+            else if (modMove.Name == "Run")
+            {
+                Debug.Log(modMove.Name + " (Does nothing)");
+                run = true;
+            }
+            else if (modMove.Name == "Evade")
+            {
+                Debug.Log(modMove.Name + " (Does nothing)");
+            }
+            else if (modMove.Name == "Block")
+            {
+                Debug.Log(modMove.Name + ": Block " + modMove.TotalValue + " damage (Attack happens after enemy attack)");
+                Debug.Log("Player HP: " + playerHP.Value + " (+" + modMove.TotalValue + ")");
+            }
+        }
+        else if (modMove.Target.ToString() == "Enemy")
+        {
+            if (modMove.Name == "Identify")
+            {
+                Debug.Log(modMove.Name + ": (takes effect after player/enemy turns)");
+                identify = true;
+            }
+        }
+    }
+
+    //Old method for executing moves
+    /*public void ExecutePlayerMove(Move move)
     {
         if (move.Name == "Block" || move.Name == "Run")
         {
@@ -215,8 +374,8 @@ public class ResolveMovePhase : IState {
             }
             else if (move.Name == "Block")
             {
-                Debug.Log(move.Name + " (Does nothing)");
-                block = true;
+                Debug.Log(move.Name + ": Player can block " + move.TotalValue + " damage");
+                playerHP.Value += move.TotalValue;
             }
         }
         else if (move.Target.ToString() == "Enemy")
@@ -248,9 +407,9 @@ public class ResolveMovePhase : IState {
             }
             else if (move.Name == "Identify")
             {
-                Debug.Log(move.Name + ": (takes effect after player/enemy turns)" );
+                Debug.Log(move.Name + ": (takes effect after player/enemy turns)");
                 identify = true;
             }
         }
-    }
+    }*/
 }
