@@ -30,6 +30,10 @@ public class PlayerMovement : MonoBehaviour
 
     private float lastInputY;
 
+    private Vector2 lastMove;
+
+    private bool isMoving;
+
     private Rigidbody2D rb;
 
     private Animator animator;
@@ -37,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
 	void Start ()
     {
         rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         currentSpeed = 0;
 	}
 	
@@ -54,6 +58,9 @@ public class PlayerMovement : MonoBehaviour
 
         animator.SetFloat("Horizontal", velocityX);
         animator.SetFloat("Vertical", velocityY);
+        animator.SetBool("isMoving", isMoving);
+        animator.SetFloat("lastMoveHorizontal", lastMove.x);
+        animator.SetFloat("lastMoveVertical", lastMove.y);
 
         // If diagonal movement: use diagonal max speed
         if (Mathf.Abs(inputX) == Mathf.Abs(inputY))
@@ -64,6 +71,8 @@ public class PlayerMovement : MonoBehaviour
         // Check for input and apply acceleration/deceleration if set.
         if (inputX != 0 || inputY != 0)
         {
+            lastMove = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            isMoving = true;
             if (acceleration != 0)
             {
                 if (currentSpeed < maxSpeed)
@@ -88,6 +97,7 @@ public class PlayerMovement : MonoBehaviour
         //Deceleration. (Not a good solution.)
         else if (inputX == 0 && inputY == 0)
         {
+            isMoving = false;
             if (deceleration != 0)
             {
                 if (currentSpeed > 0)
@@ -113,11 +123,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void SetAnimation(bool right, bool left, bool up, bool down)
-    {
-        animator.SetBool("isRight", right);
-        animator.SetBool("isLeft", left);
-        animator.SetBool("isUp", up);
-        animator.SetBool("isDown", down);
-    }
+    //public void SetAnimation(bool right, bool left, bool up, bool down)
+    //{
+    //    animator.SetBool("isRight", right);
+    //    animator.SetBool("isLeft", left);
+    //    animator.SetBool("isUp", up);
+    //    animator.SetBool("isDown", down);
+    //}
 }
